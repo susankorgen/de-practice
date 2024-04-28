@@ -5,9 +5,10 @@ from io import StringIO
 from os import makedirs
 import pandas as pd
 
-
 class QuickDemo():
     customer_name = "Unknown"
+    default_input = "input/DemoSample.csv"
+    default_output = "output/DemoDisplay.csv"
 
     def __init__(self, customer_name):
         # self.name = customer_name
@@ -19,21 +20,23 @@ class QuickDemo():
         df.info(buf=string_buffer)
         return string_buffer.getvalue()
 
-    @staticmethod
-    def run_demo(
-        data_source: str = "input/DemoSample.csv"
-    ) -> pd.DataFrame:
+    def run_demo(self, data_source: str = None) -> pd.DataFrame:
+        if data_source is None:
+            data_source = self.default_input
         return pd.read_csv(data_source)
 
     def write_demo(
         self,
         demo_data: pd.DataFrame,
-        display_target: str = "output/DemoDisplay.csv"
+        display_target: str = None
     ) -> str:
         """
         Demo simple validation of the folder and file string, not airtight for all cases.
-        TODO: regex test for folder and file path string
+        Could do a regex test for folder and file path string.
         """
+        if display_target is None:
+            display_target = self.default_output
+
         # validate output file
         position = display_target.find(".csv")
         if position == -1 or position == 0:
