@@ -20,6 +20,13 @@ class QuickDemo():
         df.info(buf=string_buffer)
         return string_buffer.getvalue()
 
+    @staticmethod
+    def get_folder_path(path: str) -> str:
+        if path.find("/") > 0:
+            return "/".join(path.split("/")[:-1])
+        else:
+            return ""
+
     def run_demo(self, data_source: str = None) -> pd.DataFrame:
         if data_source is None:
             data_source = self.default_input
@@ -44,14 +51,32 @@ class QuickDemo():
 
         # create output folder from the prefix to the file name
         if 0 < display_target.find("/") < position:
-            folder_path = "/".join(display_target.split("/")[:-1])
-            makedirs(name=folder_path, exist_ok=True)
+            makedirs(name=self.get_folder_path(display_target), exist_ok=True)
 
-        # write output to file
+        # prepare target file
         created_file = os.path.exists(display_target)
         if created_file:
             os.remove(display_target)
-        demo_data.to_csv(display_target)
+
+        # write output
+        column_list = [
+            "consumer_id",
+            "sex",
+            "age",
+            "avocado_days_sold",
+            "avocado_ripe_index",  # todo: remove this comment: 0-10
+            "avocado_days_picked",
+            "fertilizer_type",
+        ]
+        demo_data.to_csv(
+            path_or_buf=display_target,  # todo: target_{iteration}_{date}.csv
+            sep="|",
+            lineterminator="\n",
+            quotechar='"',
+            encoding="ascii",
+            # header=column_list
+            header=True,
+        )
 
         # return display text
         output = []
@@ -65,5 +90,11 @@ class QuickDemo():
 if __name__ == "__main__":
     customer_name = input("Hello customer, what is your company name? ")
     obj = QuickDemo(customer_name)
+
+    # get the data
     demo_data = obj.run_demo()
-    display_content = obj.write_demo(demo_data)
+
+    # write the output
+    # todo: write_demo needs a display_target argument with target_{iteration}_{date}.csv
+    obj.write_demo(demo_data)
+
