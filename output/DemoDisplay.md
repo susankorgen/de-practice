@@ -1,0 +1,54 @@
+|    | consumer_id   | Sex        |   age |   avocado_days_sold |   ripe_index |   avocado_days_picked | fertilizer_type                            |
+|---:|:--------------|:-----------|------:|--------------------:|-------------:|----------------------:|:-------------------------------------------|
+|  0 | 111013208632  | Male       |    58 |                 239 |            1 |                   238 | inorganic 10000 mg EVERY 4 HOURS PRN       |
+|  1 | 111013208632  | Male       |    53 |                 240 |            1 |                   238 | dry 1 mg EVERY 8 HOURS                     |
+|  2 | 111013213095  | Unknown    |    59 |                 380 |            1 |                   377 | dry 1 mg PIB AND PCEA                      |
+|  3 | 111013213095  | Male       |    18 |                 260 |            1 |                   256 | Invalid Format                             |
+|  4 | 111013213095  | Unknown    |    89 |                 245 |            6 |                   242 | heavy metal 1 mg EVERY 6 HOURS PRN         |
+|  5 | 111013213095  | Unknown    |    84 |                 380 |            3 |                   377 | organic 10000 mg PRN                       |
+|  6 | 111013213095  | Unknown    |    78 |                 259 |            3 |                   256 | inorganic 1 mg EVERY 4 HOURS PRN           |
+|  7 | 111013213095  | Non-binary |    71 |                 245 |            4 |                   242 | Invalid Format                             |
+|  8 | 111013213095  | Non-binary |    23 |                 244 |            4 |                   242 | dry 100 mg ONCE PRN                        |
+|  9 | 111013225659  | Male       |    76 |                 251 |            4 |                   250 | Invalid Format                             |
+| 10 | 111013225659  | Male       |    96 |                 247 |            2 |                   241 | heavy metal 100 mg EVERY 4 HOURS PRN       |
+| 11 | 111013225659  | Unknown    |    94 |                 257 |            3 |                   250 | organic 1 mg DAILY                         |
+| 12 | 111013225659  | Female     |    54 |                 254 |            3 |                   249 | Invalid Format                             |
+| 13 | 111013225659  | Female     |    86 |                 252 |            3 |                   248 | organic 10000 mg EVERY MON, WED, AND FRI   |
+| 14 | 111013225659  | Non-binary |     2 |                 250 |            3 |                   250 | dry 100 mg EVERY 8 HOURS                   |
+| 15 | 111013225659  | Unknown    |    14 |                 259 |            3 |                   250 | heavy metal 10000 mg EVERY 6 HOURS PRN     |
+| 16 | 111013225659  | Male       |    50 |                 251 |            6 |                   250 | inorganic 100 mg EVERY 6 HOURS SCHEDULED   |
+| 17 | 111013225659  | Unknown    |    50 |                 255 |            8 |                   250 | organic 1 mg EVERY MON, WED, AND FRI       |
+| 18 | 111013225659  | Unknown    |    47 |                 242 |            0 |                   240 | heavy metal 100 mg 2 TIMES DAILY PRN       |
+| 19 | 111013225659  | Male       |    26 |                 241 |            8 |                   238 | inorganic 10000 mg EVERY 4 HOURS PRN       |
+| 20 | 111013235506  | Non-binary |    67 |                 401 |            5 |                   397 | dry 100 mg NIGHTLY                         |
+| 21 | 111013235506  | Male       |     6 |                 345 |            4 |                   340 | heavy metal 100 mg PRN                     |
+| 22 | 111013235506  | Non-binary |    44 |                 293 |            4 |                   288 | organic 100 mg EVERY 24 HOURS              |
+| 23 | 111013235506  | Unknown    |     0 |                 244 |            3 |                   236 | heavy metal 1 mg ONCE PRN                  |
+| 24 | 111013235506  | Female     |    19 |                 264 |            3 |                   257 | dry 1 mg EVERY 15 MIN PRN                  |
+| 25 | 111013235506  | Non-binary |    77 |                 399 |            3 |                   397 | organic 100 mg NIGHTLY                     |
+| 26 | 111013235506  | Male       |    96 |                 399 |            5 |                   397 | inorganic 1 mg EVERY 24 HOURS              |
+| 27 | 111013235506  | Male       |     3 |                 344 |            3 |                   340 | inorganic 100 mg 3 TIMES DAILY PRN         |
+| 28 | 111013235506  | Male       |    71 |                 345 |            3 |                   340 | Invalid Format                             |
+| 29 | 111013235506  | Non-binary |    29 |                 293 |            5 |                   288 | inorganic 10000 mg CONTINUOUS PRN          |
+| 30 | 111013235506  | Female     |    30 |                 259 |            2 |                   257 | dry 100 mg DAILY                           |
+| 31 | 111013235506  | Female     |    36 |                 264 |            3 |                   257 | inorganic 100 mg DAILY                     |
+| 32 | 111013238188  | Non-binary |    41 |                 322 |            3 |                   314 | organic 10000 mg DAILY                     |
+| 33 | 111013238188  | Unknown    |    18 |                 296 |            3 |                   291 | organic 1 mg EVERY 4 HOURS PRN             |
+| 34 | 111013238188  | Non-binary |    99 |                 272 |            3 |                   269 | inorganic 10000 mg EVERY 6 HOURS           |
+| 35 | 111013238188  | Non-binary |    44 |                 246 |            2 |                   243 | Invalid Format                             |
+| 36 | 111013238188  | Female     |    55 |                 319 |            2 |                   314 | inorganic 100 mg EVERY 24 HOURS            |
+| 37 | 111013238188  | Non-binary |    51 |                 321 |            4 |                   314 | inorganic 1 mg CONTINUOUS PRN              |
+| 38 | 111013238188  | Male       |    54 |                 318 |            0 |                   314 | dry 10000 mg 2 TIMES DAILY PRN             |
+| 39 | 111013238188  | Non-binary |   105 |                 323 |            1 |                   314 | dry 10000 mg EVERY 8 HOURS PRN             |
+| 40 | 111013238188  | Female     |    44 |                 299 |            1 |                   291 | heavy metal 1 mg ONCE PRN                  |
+| 41 | 111013238188  | Male       |    52 |                 296 |           11 |                   291 | Invalid Format                             |
+| 42 | 111013238188  | Female     |    53 |                 272 |            4 |                   269 | dry 100 mg PIB AND PCEA                    |
+| 43 | 111013238188  | Male       |    27 |                 273 |            3 |                   269 | organic 10000 mg EVERY 4 HOURS PRN         |
+| 44 | 111013238188  | Non-binary |    41 |                 247 |            3 |                   243 | Invalid Format                             |
+| 45 | 111013238188  | Male       |    72 |                 249 |            8 |                   243 | organic 100 mg DAILY PRN                   |
+| 46 | 111013198531  | Female     |    80 |                 251 |            0 |                   243 | inorganic 10000 mg EVERY 8 HOURS PRN       |
+| 47 | 111013198531  | Female     |    32 |                 250 |            6 |                   241 | organic 1 mg ONCE                          |
+| 48 | 111013198531  | Female     |    28 |                 252 |            8 |                   243 | inorganic 100 mg 2 TIMES DAILY             |
+| 49 | 111013198531  | Unknown    |   104 |                 250 |            7 |                   241 | organic 100 mg CONTINUOUS PRN              |
+| 50 | 111013198531  | Male       |    35 |                 249 |            6 |                   240 | heavy metal 100 mg EVERY 6 HOURS SCHEDULED |
+| 51 | Unknown       | Unknown    |    24 |                   0 |            5 |                     0 | organic 100 mg EVERY 15 MIN PRN            |

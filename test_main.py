@@ -21,9 +21,6 @@ class TestMain(unittest.TestCase):
         file = self.output_to_cleanup
         if os.path.exists(file):
             os.remove(file)
-        folder = QuickDemo.get_folder_path(file)
-        if os.path.exists(folder):
-            os.rmdir(folder)
 
     def test_demo_all_defaults_happy(self):
         with open("resource/expected_output.csv", "r") as sample:
@@ -33,7 +30,7 @@ class TestMain(unittest.TestCase):
             demo_data = obj.get_demo_input()
 
             # write output
-            test_target = obj.default_output
+            test_target = obj.default_output_csv
             obj.write_demo(demo_data=demo_data)
             assert os.path.exists(test_target) is True
             with open(test_target, "r") as target:
@@ -50,7 +47,7 @@ class TestMain(unittest.TestCase):
             demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
 
             # write output
-            test_target = obj.default_output
+            test_target = obj.default_output_csv
             obj.write_demo(demo_data=demo_data)
             assert os.path.exists(test_target) is True
             with open(test_target, "r") as target:
@@ -121,7 +118,7 @@ class TestMain(unittest.TestCase):
         demo_data = obj.get_demo_input()
 
         # write first time
-        test_target = obj.default_output
+        test_target = obj.default_output_csv
         assert os.path.exists(test_target) is False
         obj.write_demo(demo_data=demo_data)
 

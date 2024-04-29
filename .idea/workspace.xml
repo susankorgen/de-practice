@@ -5,19 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="954e5571-3080-45c5-994a-393d4b80c485" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/control/helpers.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/control/quick_demo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/avocado.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/consumer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/fertilizer.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/fertilizer_list.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/procedures.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/purchase.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/purchase_list.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/uuid_list.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/error.py" beforeDir="false" afterPath="$PROJECT_DIR$/error.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/control/quick_demo.py" beforeDir="false" afterPath="$PROJECT_DIR$/control/quick_demo.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/output/DemoDisplay.csv" beforeDir="false" afterPath="$PROJECT_DIR$/output/DemoDisplay.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test_main.py" beforeDir="false" afterPath="$PROJECT_DIR$/test_main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -71,14 +62,14 @@
     "Python tests.Python tests in test_main.py.executor": "Run",
     "Python.main.executor": "Run",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "model-and-file-structure",
+    "git-widget-placeholder": "display-options-for-demo",
     "last_opened_file_path": "/Users/susankorgen/Documents/GitHub/de-practice/model",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -297,18 +288,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/test_main.py</url>
-          <line>39</line>
+          <line>36</line>
           <option name="timeStamp" value="20" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/control/helpers.py</url>
-          <line>88</line>
-          <option name="timeStamp" value="60" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/.venv/lib/python3.12/site-packages/pandas/io/formats/csvs.py</url>
-          <line>222</line>
-          <option name="timeStamp" value="64" />
         </line-breakpoint>
       </breakpoints>
       <default-breakpoints>
@@ -322,6 +303,6 @@
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/de_practice$.coverage" NAME=" Coverage Results" MODIFIED="1714416373382" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/de_practice$main.coverage" NAME="main Coverage Results" MODIFIED="1714414755677" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/de_practice$main.coverage" NAME="main Coverage Results" MODIFIED="1714422027523" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
