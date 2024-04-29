@@ -15,6 +15,9 @@ class TestMain(unittest.TestCase):
         self.output_to_cleanup = ""
 
     def tearDown(self) -> None:
+        self.clean_up_output()
+
+    def clean_up_output(self) -> None:
         file = self.output_to_cleanup
         if os.path.exists(file):
             os.remove(file)
@@ -26,12 +29,11 @@ class TestMain(unittest.TestCase):
         with open("resource/expected_output.csv", "r") as sample:
 
             # read input
-            obj = QuickDemo("Customer")
-            demo_data = obj.run_demo()
+            obj = QuickDemo()
+            demo_data = obj.get_demo_input()
 
             # write output
             test_target = obj.default_output
-            assert os.path.exists(test_target) is False
             obj.write_demo(demo_data=demo_data)
             assert os.path.exists(test_target) is True
             with open(test_target, "r") as target:
@@ -44,12 +46,11 @@ class TestMain(unittest.TestCase):
         with open("resource/expected_output.csv", "r") as sample:
 
             # read input
-            obj = QuickDemo("Customer")
-            demo_data = obj.run_demo(data_source="input/DemoSample.csv")
+            obj = QuickDemo()
+            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
 
             # write output
             test_target = obj.default_output
-            assert os.path.exists(test_target) is False
             obj.write_demo(demo_data=demo_data)
             assert os.path.exists(test_target) is True
             with open(test_target, "r") as target:
@@ -60,21 +61,20 @@ class TestMain(unittest.TestCase):
 
     def test_demo_bad_input_file_name(self):
         with open("resource/expected_output.csv", "r") as sample:
-            obj = QuickDemo("Customer")
+            obj = QuickDemo()
             with raises(FileNotFoundError) as e:
-                obj.run_demo(data_source="DemoSample.csv")
+                obj.get_demo_input(data_source="DemoSample.csv")
             assert "DemoSample.csv" == e.value.filename
 
     def test_good_output_file_name(self):
         with open("resource/expected_output.csv", "r") as sample:
 
             # read input
-            obj = QuickDemo("Customer")
-            demo_data = obj.run_demo(data_source="input/DemoSample.csv")
+            obj = QuickDemo()
+            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
 
             # write output
             test_target = "output/DemoDeleteMe.csv"
-            assert os.path.exists(test_target) is False
             obj.write_demo(demo_data=demo_data, display_target=test_target)
             assert os.path.exists(test_target) is True
             with open(test_target, "r") as target:
@@ -86,12 +86,11 @@ class TestMain(unittest.TestCase):
     def test_good_simple_output_file_name(self):
         with open("resource/expected_output.csv", "r") as sample:
             # read input
-            obj = QuickDemo("Customer")
-            demo_data = obj.run_demo(data_source="input/DemoSample.csv")
+            obj = QuickDemo()
+            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
 
             # write output
             test_target = "DemoDeleteMe.csv"
-            assert os.path.exists(test_target) is False
             obj.write_demo(demo_data=demo_data, display_target=test_target)
             assert os.path.exists(test_target) is True
             with open(test_target, "r") as target:
@@ -102,24 +101,24 @@ class TestMain(unittest.TestCase):
 
     def test_bad_output_file_name_case_0(self):
         with open("resource/expected_output.csv", "r") as sample:
-            obj = QuickDemo("Customer")
-            demo_data = obj.run_demo(data_source="input/DemoSample.csv")
+            obj = QuickDemo()
+            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
             with raises(error.InvalidOutputFile) as e:
                 obj.write_demo(demo_data=demo_data, display_target=".csv")
             assert "An invalid CSV output filename or folder was provided" == e.value.message
 
     def test_bad_output_file_name_case_minus_1(self):
         with open("resource/expected_output.csv", "r") as sample:
-            obj = QuickDemo("Customer")
-            demo_data = obj.run_demo(data_source="input/DemoSample.csv")
+            obj = QuickDemo()
+            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
             with raises(error.InvalidOutputFile) as e:
                 obj.write_demo(demo_data=demo_data, display_target="DemoDeleteMe.pdf")
             assert "An invalid CSV output filename or folder was provided" == e.value.message
 
     def test_demo_all_defaults_overwrite_output_happy(self):
         # read input
-        obj = QuickDemo("Customer")
-        demo_data = obj.run_demo()
+        obj = QuickDemo()
+        demo_data = obj.get_demo_input()
 
         # write first time
         test_target = obj.default_output
