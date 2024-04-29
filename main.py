@@ -36,7 +36,7 @@ class QuickDemo():
         self,
         demo_data: pd.DataFrame,
         display_target: str = None
-    ) -> str:
+    ) -> None:
         """
         Demo simple validation of the folder and file string, not airtight for all cases.
         Could do a regex test for folder and file path string.
@@ -68,7 +68,7 @@ class QuickDemo():
             "avocado_days_picked",
             "fertilizer_type",
         ]
-        demo_data.to_csv(
+        csv_content = demo_data.to_csv(
             path_or_buf=display_target,  # todo: target_{iteration}_{date}.csv
             sep="|",
             lineterminator="\n",
@@ -77,14 +77,6 @@ class QuickDemo():
             # header=column_list
             header=True,
         )
-
-        # return display text
-        output = []
-        output.append(f"\nHello, {self.customer_name}!\n")
-        output.append("\ndata frame: first few rows:")
-        output.append(self.get_df_string(demo_data.head()))
-        output.append("\n")
-        return "".join(output)
 
 
 if __name__ == "__main__":
