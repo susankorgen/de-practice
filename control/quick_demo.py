@@ -12,7 +12,9 @@ import pandas as pd
 class QuickDemo:
     customer_name = "Unknown"
     default_input = "input/DemoSample.csv"
-    default_output = "output/DemoDisplay.csv"
+    default_output_csv = "output/DemoDisplay.csv"
+    default_output_md = "output/DemoDisplay.md"
+    default_output_html = "output/DemoDisplay.html"
     output_columns = [
         "consumer_id",
         "Sex",
@@ -91,7 +93,7 @@ class QuickDemo:
         todo: write_demo() caller needs to format display_target as target_{iteration}_{date}.csv
         """
         if display_target is None:
-            display_target = self.default_output
+            display_target = self.default_output_csv
 
         # validate output file
         position = display_target.find(".csv")
@@ -116,3 +118,13 @@ class QuickDemo:
             encoding="ascii",
             header=self.output_columns,
         )
+
+    def get_markdown_demo(self, demo_data: pd.DataFrame) -> str:
+        demo_data.to_markdown(buf=self.default_output_md)
+        buffer = StringIO()
+        demo_data.to_markdown(buf=buffer)
+        buffer.seek(0)
+        return buffer.read()
+
+    def get_html_demo(self, demo_data: pd.DataFrame) -> None:
+        demo_data.to_html(buf=self.default_output_html)
