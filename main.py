@@ -1,3 +1,4 @@
+from control.demo_helpers import get_markdown_demo, get_html_demo
 from control.quick_demo import QuickDemo
 
 
@@ -13,8 +14,8 @@ if __name__ == "__main__":
 
     # write the output
     obj.write_demo(output)
-    obj.get_html_demo(output)
+    get_html_demo(obj.default_output_html, output)
     print()
-    print(obj.get_markdown_demo(output))
+    print(get_markdown_demo(obj.default_output_md, output))
     print("\nThe above output is the result of Task 1.")
     print("For CSV, Markdown, and HTML versions of the output, see output/DemoDisplay.*\n")
