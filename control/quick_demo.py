@@ -24,7 +24,7 @@ class QuickDemo:
         "avocado_days_picked",
         "fertilizer_type"
     ]
-    today_date = datetime.datetime.today()
+    today_date = datetime.datetime(year=2024, month=4, day=30)
     mock_random_index = -1
 
     @staticmethod
