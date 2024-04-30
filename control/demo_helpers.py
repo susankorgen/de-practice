@@ -190,7 +190,7 @@ def get_random_fertilizer(index: int) -> str:
 
 def safe_int(original_value) -> int:
     try:
-        output_value = int(math.ceil(original_value))
+        output_value = int(math.floor(original_value))
     except ValueError:
         output_value = 0
     if output_value < 0:
