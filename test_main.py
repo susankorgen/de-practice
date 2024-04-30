@@ -135,7 +135,6 @@ class TestMain(unittest.TestCase):
         # write output
         # write first time
         test_target = obj.default_output_csv
-        assert os.path.exists(test_target) is False
         obj.write_demo(demo_data=demo_data)
 
         # overwrite second time

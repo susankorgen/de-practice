@@ -190,14 +190,11 @@ def get_random_fertilizer(index: int) -> str:
 
 def safe_int(original_value) -> int:
     try:
-        output_value = int(original_value)
+        output_value = int(math.ceil(original_value))
     except ValueError:
         output_value = 0
-    if output_value <= 0:
+    if output_value < 0:
         output_value = 0
-    else:
-        if type(original_value) == float:
-            output_value = int(math.ceil(original_value))
     return output_value
 
 
