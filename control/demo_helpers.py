@@ -136,14 +136,14 @@ def get_random_fertilizer(index: int) -> str:
         "heavy metal 100 mg EVERY 6 HOURS SCHEDULED",
         "heavy metal 1 mg PRN",
         "inorganic 100 mg EVERY 6 HOURS PRN",
-        "Invalid Format",
+        "other",
         "dry 1 mg EVERY 6 HOURS PRN",
         "heavy metal 100 mg EVERY 6 HOURS",
         "heavy metal 100 mg EVERY 4 HOURS PRN",
         "inorganic 1 mg 3 TIMES DAILY PRN",
         "inorganic 100 mg EVERY 15 MIN PRN",
         "heavy metal 100 mg EVERY 4 HOURS PRN",
-        "Invalid Format",
+        "other",
         "heavy metal 1 mg DAILY PRN",
         "organic 1 mg CONTINUOUS",
         "organic 1 mg EVERY 6 HOURS",
@@ -153,30 +153,30 @@ def get_random_fertilizer(index: int) -> str:
         "organic 1 mg EVERY 24 HOURS",
         "heavy metal 100 mg 2 TIMES DAILY",
         "organic 10000 mg EVERY 6 HOURS SCHEDULED",
-        "Invalid Format",
+        "other",
         "organic 10000 mg CONTINUOUS",
         "heavy metal 10000 mg NIGHTLY",
         "dry 10000 mg CONTINUOUS PRN",
-        "Invalid Format",
+        "other",
         "dry 100 mg EVERY MORNING 1 HOUR BEFORE BREAKFAST",
         "organic 10000 mg EVERY 24 HOURS",
         "heavy metal 10000 mg EVERY MON, WED, AND FRI",
         "inorganic 100 mg EVERY 8 HOURS PRN",
         "organic 100 mg EVERY 8 HOURS",
-        "Invalid Format",
+        "other",
         "dry 10000 mg ONCE",
-        "Invalid Format",
+        "other",
         "dry 100 mg NIGHTLY",
         "heavy metal 100 mg 3 TIMES DAILY PRN",
         "heavy metal 100 mg PIB AND PCEA",
-        "Invalid Format",
+        "other",
         "inorganic 1 mg CONTINUOUS PRN",
         "dry 100 mg EVERY 24 HOURS",
-        "Invalid Format",
+        "other",
         "inorganic 1 mg ONCE PRN",
         "heavy metal 1 mg PIB AND PCEA",
         "inorganic 1 mg EVERY 15 MIN PRN",
-        "Invalid Format",
+        "other",
         "dry 1 mg EVERY 8 HOURS PRN",
         "organic 1 mg DAILY",
         "inorganic 1 mg EVERY 6 HOURS PRN",
@@ -189,6 +189,7 @@ def get_random_fertilizer(index: int) -> str:
 
 
 def safe_int(original_value) -> int:
+    # TODO: detect original_value data type: if null or not str, log the correct DQI
     try:
         output_value = int(math.floor(original_value))
     except ValueError:
@@ -199,6 +200,7 @@ def safe_int(original_value) -> int:
 
 
 def safe_number_string(input_value) -> str:
+    # TODO: detect input_value data type: if null or not int, log the correct DQI
     if input_value is None or input_value == "":
         return "Empty"
     try:
@@ -210,23 +212,28 @@ def safe_number_string(input_value) -> str:
 
 def safe_string(input_value) -> str:
     """Addresses UNICODE character problems for the required ASCII output format."""
+    # TODO: detect input_value characteristics: if invalid, log the correct DQI
     try:
         input_value.encode("ascii")
         output_value = input_value
     except UnicodeEncodeError:
-        output_value = "Invalid Format"
+        output_value = "other"
     return output_value
 
 
-def safe_demo_date(input_string: str, default, offset: int = 0):
-    if input_string is None:
+def safe_demo_date(original_string, default, offset: int = 0):
+    # TODO: detect input_string characteristics: if invalid, log the correct DQI
+    # TODO: revisit datetime day counts for consistent results, remove workaround in today_date
+    if original_string is None:
+        return default
+    if type(original_string) is not str:
+        return default
+    input_string = original_string.split(" ")[0]
+    try:
+        output_value = datetime.datetime.strptime(input_string, "%Y-%m-%d")
+        output_value += relativedelta(years=offset)
+    except TypeError:
         output_value = default
-    else:
-        try:
-            output_value = datetime.datetime.strptime(input_string, "%Y-%m-%d %H:%M:%S")
-            output_value += relativedelta(years=offset)
-        except TypeError:
-            output_value = default
     return output_value
 
 

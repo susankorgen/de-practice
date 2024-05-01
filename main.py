@@ -1,6 +1,7 @@
 from control.demo_helpers import get_markdown_demo, get_html_demo
 from control.etl_demo import ETLDemo
 from control.quick_demo import QuickDemo
+import pandas as pd
 
 
 def quick_demo():
@@ -24,20 +25,37 @@ def quick_demo():
 
 def etl_demo():
     # init
+    pd.set_option("mode.copy_on_write", True)
     obj = ETLDemo()
 
     # get the data
-    demo_data = obj.get_demo_input()
+    avocado_data = obj.get_demo_input("input/avocado.csv")
+    consumer_data = obj.get_demo_input("input/consumer.csv")
+    fertilizer_data = obj.get_demo_input("input/fertilizer.csv")
+    purchase_data = obj.get_demo_input("input/purchase.csv")
 
-    # transform
-    output = obj.transform(demo_data)
+    # clean the data
+    (avocado_refined, consumer_refined, fertilizer_refined, purchase_refined) = obj.refine_input(
+        avocado_data,
+        consumer_data,
+        fertilizer_data,
+        purchase_data
+    )
+
+    # transform the data
+    result_table = obj.transform(
+        avocado_refined,
+        consumer_refined,
+        fertilizer_refined,
+        purchase_refined
+    )
 
     # write the output
-    obj.write_demo(output)
-    get_html_demo(obj.default_output_html, output)
+    obj.write_demo(result_table)
+    get_html_demo(obj.default_output_html, result_table)
     print()
-    print(get_markdown_demo(obj.default_output_md, output))
-    print("\nThe above output is the result of Task 1.")
+    print(get_markdown_demo(obj.default_output_md, result_table))
+    print("\nThe above output is the result of Task 2.")
     print("For CSV, Markdown, and HTML versions of the output, see output/ETLDisplay.*\n")
 
 
@@ -48,7 +66,7 @@ def pipeline_demo():
 
 if __name__ == "__main__":
     # Task 1
-    # quick_demo()
+    quick_demo()
 
     # Task 2 ETL
     etl_demo()

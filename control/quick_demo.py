@@ -24,7 +24,7 @@ class QuickDemo:
         "avocado_days_picked",
         "fertilizer_type"
     ]
-    today_date = datetime.datetime(year=2024, month=4, day=30)
+    today_date = datetime.datetime(year=2024, month=4, day=30)  # see demo_helpers.safe_demo_date()
     mock_random_index = -1
 
     @staticmethod
@@ -69,7 +69,7 @@ class QuickDemo:
         sex = get_random_gender(self.mock_random_index)
         age = get_random_age(self.mock_random_index)
         avocado_ripe_index = safe_int(price_index)
-        past_date = safe_demo_date(input_string=graphed_date, default=self.today_date, offset=25)
+        past_date = safe_demo_date(original_string=graphed_date, default=self.today_date, offset=25)
         avocado_days_picked = safe_int((self.today_date - past_date).days)
         avocado_days_sold = safe_int(avocado_days_picked + avocado_bunch_id)
         fertilizer_type = get_random_fertilizer(self.mock_random_index)
