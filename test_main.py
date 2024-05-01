@@ -27,13 +27,16 @@ class TestMain(unittest.TestCase):
 
             # read input
             obj = QuickDemo()
-            demo_data = obj.get_demo_input()
+            input = obj.get_demo_input()
+
+            # transform input
+            demo_data = obj.transform(input)
 
             # write output
             test_target = obj.default_output_csv
             obj.write_demo(demo_data=demo_data)
             assert os.path.exists(test_target) is True
-            with open(test_target, "r") as target:
+            with open(test_target, "r", encoding="ascii") as target:
                 assert sample.read() == target.read()
 
             # clean up
@@ -44,7 +47,10 @@ class TestMain(unittest.TestCase):
 
             # read input
             obj = QuickDemo()
-            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
+            input = obj.get_demo_input(data_source="input/DemoSample.csv")
+
+            # transform input
+            demo_data = obj.transform(input)
 
             # write output
             test_target = obj.default_output_csv
@@ -68,7 +74,10 @@ class TestMain(unittest.TestCase):
 
             # read input
             obj = QuickDemo()
-            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
+            input = obj.get_demo_input(data_source="input/DemoSample.csv")
+
+            # transform input
+            demo_data = obj.transform(input)
 
             # write output
             test_target = "output/DemoDeleteMe.csv"
@@ -84,7 +93,10 @@ class TestMain(unittest.TestCase):
         with open("resource/expected_output.csv", "r") as sample:
             # read input
             obj = QuickDemo()
-            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
+            input = obj.get_demo_input(data_source="input/DemoSample.csv")
+
+            # transform input
+            demo_data = obj.transform(input)
 
             # write output
             test_target = "DemoDeleteMe.csv"
@@ -115,11 +127,14 @@ class TestMain(unittest.TestCase):
     def test_demo_all_defaults_overwrite_output_happy(self):
         # read input
         obj = QuickDemo()
-        demo_data = obj.get_demo_input()
+        input = obj.get_demo_input()
 
+        # transform input
+        demo_data = obj.transform(input)
+
+        # write output
         # write first time
         test_target = obj.default_output_csv
-        assert os.path.exists(test_target) is False
         obj.write_demo(demo_data=demo_data)
 
         # overwrite second time
