@@ -2,18 +2,20 @@ import datetime
 import os
 import random
 
-from control.demo_helpers import safe_int, safe_demo_date, safe_string
+from control.demo_helpers import safe_positive_int, safe_demo_date, safe_string, safe_int_range
 from error import InvalidOutputFile
 from io import StringIO
 import pandas as pd
+
+from quality.DataQualityIssueReport import report_quality_issue
 
 
 class PipelineQualityDemo:
     customer_name = "Unknown"
     default_input = "input/demo.csv"
-    default_output_csv = "output/ETLDisplay.csv"
-    default_output_md = "output/ETLDisplay.md"
-    default_output_html = "output/ETLDisplay.html"
+    default_output_csv = "result/PipelineDisplay.csv"
+    default_output_md = "result/PipelineDisplay.md"
+    default_output_html = "result/PipelineDisplay.html"
     output_columns = [
         "consumer_id",
         "Sex",
@@ -25,9 +27,9 @@ class PipelineQualityDemo:
     ]
     today_date = datetime.datetime(year=2024, month=4, day=30)  # see demo_helpers.safe_demo_date()
     mock_random_index = -1
-    default_dqi_csv = "report/DQIDisplay.csv"
-    default_dqi_md = "report/DQIDisplay.md"
-    default_dqi_html = "report/DQIDisplay.html"
+    default_dqi_csv = "report/QualityDisplay.csv"
+    default_dqi_md = "report/QualityDisplay.md"
+    default_dqi_html = "report/QualityDisplay.html"
 
     @staticmethod
     def get_df_string(df: pd.DataFrame) -> str:
@@ -84,21 +86,22 @@ class PipelineQualityDemo:
             "ripe index when picked",
             "picked_date"
         ]]
-        avocado_refined["avocado_bunch_id"] = avocado_refined["avocado_bunch_id"].apply(safe_int)
-        avocado_refined["ripe index when picked"] = avocado_refined["ripe index when picked"].apply(safe_int)
+        avocado_refined["avocado_bunch_id"] = avocado_refined["avocado_bunch_id"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="avocado", field_name="avocado_bunch_id")
+        avocado_refined["ripe index when picked"] = avocado_refined["ripe index when picked"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="avocado", field_name="ripe index when picked")
+        report_quality_issue("NONSTANDARD-7a", "refine_input", "consumer", "ripe index when picked")
 
         consumer_refined = consumer_data[["consumerid", "Sex", "Age"]]
-        consumer_refined["consumerid"] = consumer_refined["consumerid"].apply(safe_int)
-        consumer_refined["Sex"] = consumer_refined["Sex"].apply(safe_string)
-        consumer_refined["Age"] = consumer_refined["Age"].apply(safe_int)
+        consumer_refined["consumerid"] = consumer_refined["consumerid"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="consumer", field_name="consumerid")
+        consumer_refined["Sex"] = consumer_refined["Sex"].apply(safe_string, pipeline_segment="refine_input", table_name="consumer", field_name="Sex")
+        consumer_refined["Age"] = consumer_refined["Age"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="consumer", field_name="Age")
 
         purchase_refined = purchase_data[["purchaseid", "avocado_bunch_id"]]
-        purchase_refined["purchaseid"] = purchase_refined["purchaseid"].apply(safe_int)
-        purchase_refined["avocado_bunch_id"] = purchase_refined["avocado_bunch_id"].apply(safe_int)
+        purchase_refined["purchaseid"] = purchase_refined["purchaseid"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="purchase", field_name="purchaseid")
+        purchase_refined["avocado_bunch_id"] = purchase_refined["avocado_bunch_id"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="purchase", field_name="avocado_bunch_id")
 
         fertilizer_refined = fertilizer_data[["purchaseid", "fertilizerid", "type"]]
-        fertilizer_refined["purchaseid"] = fertilizer_refined["purchaseid"].apply(safe_int)
-        fertilizer_refined["type"] = fertilizer_refined["type"].apply(safe_string)
+        fertilizer_refined["purchaseid"] = fertilizer_refined["purchaseid"].apply(safe_positive_int, pipeline_segment="refine_input", table_name="fertilizer", field_name="purchaseid")
+        fertilizer_refined["type"] = fertilizer_refined["type"].apply(safe_string, pipeline_segment="refine_input", table_name="fertilizer", field_name="type")
 
         return avocado_refined, consumer_refined, fertilizer_refined, purchase_refined
 
@@ -121,12 +124,15 @@ class PipelineQualityDemo:
             select_df = merged_df[["sold_date", "born_date", "picked_date", "ripe index when picked", "type"]]
 
             # customer: get values from a random consumer row and assign a 12-digit unique ID
+            report_quality_issue("BLOCKER-1a", "transform", "consumer", "consumerid")
+            report_quality_issue("MISSING-3a", "transform", "consumer", "consumerid")
             random_consumer_index = random.randint(0, len(consumer_refined) - 1)
-            consumer_id = random_consumer_index + 100000000001  # workaround for demo for bad PKs
+            consumer_id = random_consumer_index + 100000000001
             consumer_sex = consumer_refined.at[random_consumer_index, "Sex"]
             consumer_age = consumer_refined.at[random_consumer_index, "Age"]
+            consumer_age = safe_int_range(consumer_age, min_value=1, max_value=120, pipeline_segment="transform", table_name="consumer", field_name="Age")
 
-            # avocado: calculate day counts
+                           # avocado: calculate day counts
             (avocado_days_sold, ripe_index, avocado_days_picked) = PipelineQualityDemo.transform_avocado(
                 avocado["sold_date"],
                 avocado["born_date"],
@@ -153,44 +159,43 @@ class PipelineQualityDemo:
 
     @staticmethod
     def transform_avocado(sold_date, born_date, ripe_index, picked_date: str) -> (int, int, int):
-        sold_datetime = safe_demo_date(sold_date, default=PipelineQualityDemo.today_date)
-        born_datetime = safe_demo_date(born_date, default=PipelineQualityDemo.today_date)
-        ripe_index = safe_int(ripe_index)
-        picked_datetime = safe_demo_date(picked_date, default=PipelineQualityDemo.today_date)
-        avocado_days_picked = safe_int((sold_datetime - born_datetime).days)
-        avocado_days_sold = safe_int((sold_datetime - picked_datetime).days)
+        sold_datetime = safe_demo_date(sold_date, default=PipelineQualityDemo.today_date, pipeline_segment="transform", table_name="avocado", field_name="sold_date")
+        born_datetime = safe_demo_date(born_date, default=PipelineQualityDemo.today_date, pipeline_segment="transform", table_name="avocado", field_name="born_date")
+        ripe_index = safe_int_range(ripe_index, min_value=0, max_value=10, pipeline_segment="transform", table_name="avocado", field_name="ripe index when picked")
+        picked_datetime = safe_demo_date(picked_date, default=PipelineQualityDemo.today_date, pipeline_segment="transform", table_name="avocado", field_name="picked_date")
+        avocado_days_picked = safe_positive_int((sold_datetime - born_datetime).days, pipeline_segment="transform", table_name="result", field_name="avocado_days_picked")
+        avocado_days_sold = safe_positive_int((sold_datetime - picked_datetime).days, pipeline_segment="transform", table_name="result", field_name="avocado_days_sold")
         return avocado_days_sold, ripe_index, avocado_days_picked
 
-    def write_demo(
+    def write_csv(
         self,
-        demo_data: pd.DataFrame,
-        display_target: str = None
+        default_output_csv: str,
+        demo_data: pd.DataFrame
     ) -> None:
         """
-        Demo simple validation of the folder and file string, not airtight for all cases.
-        To make airtight, would test a regex for folder and file path string before using it.
-        todo: write_demo() caller needs to format display_target as target_{iteration}_{date}.csv
+        Does minor validation of the folder and file string, not airtight for all cases.
+        To make airtight, would test a regex against the folder and file path string.
         """
-        if display_target is None:
-            display_target = self.default_output_csv
+        if default_output_csv is None:
+            default_output_csv = self.default_output_csv
 
-        # validate output file
-        position = display_target.find(".csv")
+        # validate result file
+        position = default_output_csv.find(".csv")
         if position == -1 or position == 0:
             raise InvalidOutputFile()
 
-        # create output folder from the prefix to the file name
-        if 0 < display_target.find("/") < position:
-            os.makedirs(name=self.get_folder_path(display_target), exist_ok=True)
+        # create result folder from the prefix to the file name
+        if 0 < default_output_csv.find("/") < position:
+            os.makedirs(name=self.get_folder_path(default_output_csv), exist_ok=True)
 
         # prepare target file
-        created_file = os.path.exists(display_target)
+        created_file = os.path.exists(default_output_csv)
         if created_file:
-            os.remove(display_target)
+            os.remove(default_output_csv)
 
-        # write output
+        # write result
         demo_data.to_csv(
-            path_or_buf=display_target,  # todo: target_{iteration}_{date}.csv
+            path_or_buf=default_output_csv,  # TODO: target_{iteration}_{date}.csv
             sep="|",
             lineterminator="\n",
             quotechar='"',
