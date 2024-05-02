@@ -2,7 +2,7 @@ import datetime
 import os
 
 from control.demo_helpers import safe_number_string, \
-    get_random_gender, get_random_age, safe_int, \
+    get_random_gender, get_random_age, safe_positive_int, \
     safe_demo_date, get_random_fertilizer
 from error import InvalidOutputFile
 from io import StringIO
@@ -11,10 +11,10 @@ import pandas as pd
 
 class QuickDemo:
     customer_name = "Unknown"
-    default_input = "input/DemoSample.csv"
-    default_output_csv = "output/DemoDisplay.csv"
-    default_output_md = "output/DemoDisplay.md"
-    default_output_html = "output/DemoDisplay.html"
+    default_input = "input/demo.csv"
+    default_output_csv = "result/QuickDisplay.csv"
+    default_output_md = "result/QuickDisplay.md"
+    default_output_html = "result/QuickDisplay.html"
     output_columns = [
         "consumer_id",
         "Sex",
@@ -40,7 +40,7 @@ class QuickDemo:
         else:
             return ""
 
-    def get_demo_input(self, data_source: str = None) -> pd.DataFrame:
+    def read_input(self, data_source: str = None) -> pd.DataFrame:
         if data_source is None:
             data_source = self.default_input
         return pd.read_csv(data_source)
@@ -68,10 +68,10 @@ class QuickDemo:
         consumer_id = safe_number_string(consumerid)
         sex = get_random_gender(self.mock_random_index)
         age = get_random_age(self.mock_random_index)
-        avocado_ripe_index = safe_int(price_index)
+        avocado_ripe_index = safe_positive_int(price_index)
         past_date = safe_demo_date(original_string=graphed_date, default=self.today_date, offset=25)
-        avocado_days_picked = safe_int((self.today_date - past_date).days)
-        avocado_days_sold = safe_int(avocado_days_picked + avocado_bunch_id)
+        avocado_days_picked = safe_positive_int((self.today_date - past_date).days)
+        avocado_days_sold = safe_positive_int(avocado_days_picked + avocado_bunch_id)
         fertilizer_type = get_random_fertilizer(self.mock_random_index)
 
         return [
@@ -97,12 +97,12 @@ class QuickDemo:
         if display_target is None:
             display_target = self.default_output_csv
 
-        # validate output file
+        # validate result file
         position = display_target.find(".csv")
         if position == -1 or position == 0:
             raise InvalidOutputFile()
 
-        # create output folder from the prefix to the file name
+        # create result folder from the prefix to the file name
         if 0 < display_target.find("/") < position:
             os.makedirs(name=self.get_folder_path(display_target), exist_ok=True)
 
@@ -111,7 +111,7 @@ class QuickDemo:
         if created_file:
             os.remove(display_target)
 
-        # write output
+        # write result
         demo_data.to_csv(
             path_or_buf=display_target,  # todo: target_{iteration}_{date}.csv
             sep="|",

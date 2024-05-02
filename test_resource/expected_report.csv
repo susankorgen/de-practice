@@ -1,0 +1,25 @@
+|consumer_id|Sex|age|avocado_days_sold|ripe_index|avocado_days_picked|fertilizer_type
+6|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+8|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+10|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+12|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+14|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+16|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+18|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+20|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+22|BLOCKER-1a|50.0|PK is not unique in table|mock values|transform|consumer|consumerid
+7|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+9|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+11|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+13|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+15|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+17|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+19|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+21|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+23|MISSING-3a|25.0|Missing value for a field required for analysis|choose random row from real data|transform|consumer|consumerid
+5|UNEXPECTED-6b|4.75|non-ASCII char in str but ASCII output is required|set to 'other'|refine_input|fertilizer|type
+1|UNEXPECTED-6c|4.5|NaN in a number|set to 0|refine_input|consumer|Age
+2|UNEXPECTED-6c|4.5|NaN in a number|set to 0|refine_input|purchase|purchaseid
+3|UNEXPECTED-6c|4.5|NaN in a number|set to 0|refine_input|purchase|avocado_bunch_id
+4|UNEXPECTED-6c|4.5|NaN in a number|set to 0|refine_input|fertilizer|purchaseid
+0|NONSTANDARD-7a|2.0|Spaces in a field name||refine_input|consumer|ripe index when picked
