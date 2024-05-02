@@ -8,7 +8,7 @@ from io import StringIO
 import pandas as pd
 
 
-class ETLDemo:
+class PipelineQualityDemo:
     customer_name = "Unknown"
     default_input = "input/demo.csv"
     default_output_csv = "output/ETLDisplay.csv"
@@ -25,6 +25,9 @@ class ETLDemo:
     ]
     today_date = datetime.datetime(year=2024, month=4, day=30)  # see demo_helpers.safe_demo_date()
     mock_random_index = -1
+    default_dqi_csv = "report/DQIDisplay.csv"
+    default_dqi_md = "report/DQIDisplay.md"
+    default_dqi_html = "report/DQIDisplay.html"
 
     @staticmethod
     def get_df_string(df: pd.DataFrame) -> str:
@@ -124,7 +127,7 @@ class ETLDemo:
             consumer_age = consumer_refined.at[random_consumer_index, "Age"]
 
             # avocado: calculate day counts
-            (avocado_days_sold, ripe_index, avocado_days_picked) = ETLDemo.transform_avocado(
+            (avocado_days_sold, ripe_index, avocado_days_picked) = PipelineQualityDemo.transform_avocado(
                 avocado["sold_date"],
                 avocado["born_date"],
                 avocado["ripe index when picked"],
@@ -150,10 +153,10 @@ class ETLDemo:
 
     @staticmethod
     def transform_avocado(sold_date, born_date, ripe_index, picked_date: str) -> (int, int, int):
-        sold_datetime = safe_demo_date(sold_date, default=ETLDemo.today_date)
-        born_datetime = safe_demo_date(born_date, default=ETLDemo.today_date)
+        sold_datetime = safe_demo_date(sold_date, default=PipelineQualityDemo.today_date)
+        born_datetime = safe_demo_date(born_date, default=PipelineQualityDemo.today_date)
         ripe_index = safe_int(ripe_index)
-        picked_datetime = safe_demo_date(picked_date, default=ETLDemo.today_date)
+        picked_datetime = safe_demo_date(picked_date, default=PipelineQualityDemo.today_date)
         avocado_days_picked = safe_int((sold_datetime - born_datetime).days)
         avocado_days_sold = safe_int((sold_datetime - picked_datetime).days)
         return avocado_days_sold, ripe_index, avocado_days_picked

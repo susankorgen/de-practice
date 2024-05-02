@@ -1,5 +1,6 @@
 from control.demo_helpers import get_markdown_demo, get_html_demo
 from control.etl_demo import ETLDemo
+from control.pipeline_quality_demo import PipelineQualityDemo
 from control.quick_demo import QuickDemo
 import pandas as pd
 
@@ -59,10 +60,10 @@ def etl_demo():
     print("For CSV, Markdown, and HTML versions of the output, see output/ETLDisplay.*\n")
 
 
-def pipeline_demo():
+def pipeline_quality_demo():
     # init
     pd.set_option("mode.copy_on_write", True)
-    obj = ETLDemo()
+    obj = PipelineQualityDemo()
 
     # read the data
     avocado_data = obj.read_input("input/avocado.csv")
@@ -91,6 +92,13 @@ def pipeline_demo():
     get_html_demo(obj.default_output_html, result_table)
     print()
     print(get_markdown_demo(obj.default_output_md, result_table))
+    print("\nThe above output is the result of Task 2, Part 1 ETL")
+    print("For CSV, Markdown, and HTML versions of the output, see output/ETLDisplay.*\n")
+
+    # write the DQI report
+    # TODO: implement
+    print()
+    print("To be supplied")
     print("\nThe above output is the result of Task 2, Part 2 Data Quality")
     print("For CSV, Markdown, and HTML versions of the output, see output/DQIDisplay.*\n")
 
@@ -103,4 +111,4 @@ if __name__ == "__main__":
     etl_demo()
 
     # Task 2 Pipeline
-    pipeline_demo()
+    pipeline_quality_demo()
