@@ -2,7 +2,7 @@ import datetime
 import os
 import random
 
-from control.demo_helpers import safe_int, safe_demo_date, safe_string
+from control.demo_helpers import safe_positive_int, safe_demo_date, safe_string
 from error import InvalidOutputFile
 from io import StringIO
 import pandas as pd
@@ -11,9 +11,9 @@ import pandas as pd
 class ETLDemo:
     customer_name = "Unknown"
     default_input = "input/demo.csv"
-    default_output_csv = "output/ETLDisplay.csv"
-    default_output_md = "output/ETLDisplay.md"
-    default_output_html = "output/ETLDisplay.html"
+    default_output_csv = "result/ETLDisplay.csv"
+    default_output_md = "result/ETLDisplay.md"
+    default_output_html = "result/ETLDisplay.html"
     output_columns = [
         "consumer_id",
         "Sex",
@@ -81,20 +81,20 @@ class ETLDemo:
             "ripe index when picked",
             "picked_date"
         ]]
-        avocado_refined["avocado_bunch_id"] = avocado_refined["avocado_bunch_id"].apply(safe_int)
-        avocado_refined["ripe index when picked"] = avocado_refined["ripe index when picked"].apply(safe_int)
+        avocado_refined["avocado_bunch_id"] = avocado_refined["avocado_bunch_id"].apply(safe_positive_int)
+        avocado_refined["ripe index when picked"] = avocado_refined["ripe index when picked"].apply(safe_positive_int)
 
         consumer_refined = consumer_data[["consumerid", "Sex", "Age"]]
-        consumer_refined["consumerid"] = consumer_refined["consumerid"].apply(safe_int)
+        consumer_refined["consumerid"] = consumer_refined["consumerid"].apply(safe_positive_int)
         consumer_refined["Sex"] = consumer_refined["Sex"].apply(safe_string)
-        consumer_refined["Age"] = consumer_refined["Age"].apply(safe_int)
+        consumer_refined["Age"] = consumer_refined["Age"].apply(safe_positive_int)
 
         purchase_refined = purchase_data[["purchaseid", "avocado_bunch_id"]]
-        purchase_refined["purchaseid"] = purchase_refined["purchaseid"].apply(safe_int)
-        purchase_refined["avocado_bunch_id"] = purchase_refined["avocado_bunch_id"].apply(safe_int)
+        purchase_refined["purchaseid"] = purchase_refined["purchaseid"].apply(safe_positive_int)
+        purchase_refined["avocado_bunch_id"] = purchase_refined["avocado_bunch_id"].apply(safe_positive_int)
 
         fertilizer_refined = fertilizer_data[["purchaseid", "fertilizerid", "type"]]
-        fertilizer_refined["purchaseid"] = fertilizer_refined["purchaseid"].apply(safe_int)
+        fertilizer_refined["purchaseid"] = fertilizer_refined["purchaseid"].apply(safe_positive_int)
         fertilizer_refined["type"] = fertilizer_refined["type"].apply(safe_string)
 
         return avocado_refined, consumer_refined, fertilizer_refined, purchase_refined
@@ -152,10 +152,10 @@ class ETLDemo:
     def transform_avocado(sold_date, born_date, ripe_index, picked_date: str) -> (int, int, int):
         sold_datetime = safe_demo_date(sold_date, default=ETLDemo.today_date)
         born_datetime = safe_demo_date(born_date, default=ETLDemo.today_date)
-        ripe_index = safe_int(ripe_index)
+        ripe_index = safe_positive_int(ripe_index)
         picked_datetime = safe_demo_date(picked_date, default=ETLDemo.today_date)
-        avocado_days_picked = safe_int((sold_datetime - born_datetime).days)
-        avocado_days_sold = safe_int((sold_datetime - picked_datetime).days)
+        avocado_days_picked = safe_positive_int((sold_datetime - born_datetime).days)
+        avocado_days_sold = safe_positive_int((sold_datetime - picked_datetime).days)
         return avocado_days_sold, ripe_index, avocado_days_picked
 
     def write_demo(
@@ -171,12 +171,12 @@ class ETLDemo:
         if display_target is None:
             display_target = self.default_output_csv
 
-        # validate output file
+        # validate result file
         position = display_target.find(".csv")
         if position == -1 or position == 0:
             raise InvalidOutputFile()
 
-        # create output folder from the prefix to the file name
+        # create result folder from the prefix to the file name
         if 0 < display_target.find("/") < position:
             os.makedirs(name=self.get_folder_path(display_target), exist_ok=True)
 
@@ -185,7 +185,7 @@ class ETLDemo:
         if created_file:
             os.remove(display_target)
 
-        # write output
+        # write result
         demo_data.to_csv(
             path_or_buf=display_target,  # todo: target_{iteration}_{date}.csv
             sep="|",
