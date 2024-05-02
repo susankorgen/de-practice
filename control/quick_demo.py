@@ -11,7 +11,7 @@ import pandas as pd
 
 class QuickDemo:
     customer_name = "Unknown"
-    default_input = "input/DemoSample.csv"
+    default_input = "input/demo.csv"
     default_output_csv = "output/DemoDisplay.csv"
     default_output_md = "output/DemoDisplay.md"
     default_output_html = "output/DemoDisplay.html"
@@ -40,7 +40,7 @@ class QuickDemo:
         else:
             return ""
 
-    def get_demo_input(self, data_source: str = None) -> pd.DataFrame:
+    def read_input(self, data_source: str = None) -> pd.DataFrame:
         if data_source is None:
             data_source = self.default_input
         return pd.read_csv(data_source)

@@ -9,7 +9,7 @@ def quick_demo():
     obj = QuickDemo()
 
     # get the data
-    demo_data = obj.get_demo_input()
+    demo_data = obj.read_input()
 
     # transform
     output = obj.transform(demo_data)
@@ -28,13 +28,13 @@ def etl_demo():
     pd.set_option("mode.copy_on_write", True)
     obj = ETLDemo()
 
-    # get the data
-    avocado_data = obj.get_demo_input("input/avocado.csv")
-    consumer_data = obj.get_demo_input("input/consumer.csv")
-    fertilizer_data = obj.get_demo_input("input/fertilizer.csv")
-    purchase_data = obj.get_demo_input("input/purchase.csv")
+    # read the data
+    avocado_data = obj.read_input("input/avocado.csv")
+    consumer_data = obj.read_input("input/consumer.csv")
+    fertilizer_data = obj.read_input("input/fertilizer.csv")
+    purchase_data = obj.read_input("input/purchase.csv")
 
-    # clean the data
+    # refine the data
     (avocado_refined, consumer_refined, fertilizer_refined, purchase_refined) = obj.refine_input(
         avocado_data,
         consumer_data,
@@ -50,18 +50,49 @@ def etl_demo():
         purchase_refined
     )
 
-    # write the output
+    # write the result
     obj.write_demo(result_table)
     get_html_demo(obj.default_output_html, result_table)
     print()
     print(get_markdown_demo(obj.default_output_md, result_table))
-    print("\nThe above output is the result of Task 2.")
+    print("\nThe above output is the result of Task 2, Part 1 ETL")
     print("For CSV, Markdown, and HTML versions of the output, see output/ETLDisplay.*\n")
 
 
 def pipeline_demo():
-    """Stub"""
-    pass
+    # init
+    pd.set_option("mode.copy_on_write", True)
+    obj = ETLDemo()
+
+    # read the data
+    avocado_data = obj.read_input("input/avocado.csv")
+    consumer_data = obj.read_input("input/consumer.csv")
+    fertilizer_data = obj.read_input("input/fertilizer.csv")
+    purchase_data = obj.read_input("input/purchase.csv")
+
+    # refine the data
+    (avocado_refined, consumer_refined, fertilizer_refined, purchase_refined) = obj.refine_input(
+        avocado_data,
+        consumer_data,
+        fertilizer_data,
+        purchase_data
+    )
+
+    # transform the data
+    result_table = obj.transform(
+        avocado_refined,
+        consumer_refined,
+        fertilizer_refined,
+        purchase_refined
+    )
+
+    # write the result
+    obj.write_demo(result_table)
+    get_html_demo(obj.default_output_html, result_table)
+    print()
+    print(get_markdown_demo(obj.default_output_md, result_table))
+    print("\nThe above output is the result of Task 2, Part 2 Data Quality")
+    print("For CSV, Markdown, and HTML versions of the output, see output/DQIDisplay.*\n")
 
 
 if __name__ == "__main__":
@@ -72,4 +103,4 @@ if __name__ == "__main__":
     etl_demo()
 
     # Task 2 Pipeline
-    # pipeline_demo()
+    pipeline_demo()

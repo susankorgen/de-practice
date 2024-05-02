@@ -2,9 +2,7 @@ import datetime
 import os
 import random
 
-from control.demo_helpers import safe_number_string, \
-    get_random_gender, get_random_age, safe_int, \
-    safe_demo_date, get_random_fertilizer, safe_string
+from control.demo_helpers import safe_int, safe_demo_date, safe_string
 from error import InvalidOutputFile
 from io import StringIO
 import pandas as pd
@@ -12,7 +10,7 @@ import pandas as pd
 
 class ETLDemo:
     customer_name = "Unknown"
-    default_input = "input/DemoSample.csv"
+    default_input = "input/demo.csv"
     default_output_csv = "output/ETLDisplay.csv"
     default_output_md = "output/ETLDisplay.md"
     default_output_html = "output/ETLDisplay.html"
@@ -41,21 +39,22 @@ class ETLDemo:
         else:
             return ""
 
-    def get_demo_input(self, data_source: str = None) -> pd.DataFrame:
+    def read_input(self, data_source: str = None) -> pd.DataFrame:
+        """This is the READ segment of the data pipeline (1st of 3 segments)"""
         if data_source is None:
             data_source = self.default_input
         demo_input = pd.read_csv(data_source)
         return demo_input
 
-
+    @staticmethod
     def refine_input(
-            self,
-            avocado_data: pd.DataFrame,
-            consumer_data: pd.DataFrame,
-            fertilizer_data: pd.DataFrame,
-            purchase_data: pd.DataFrame,
+        avocado_data: pd.DataFrame,
+        consumer_data: pd.DataFrame,
+        fertilizer_data: pd.DataFrame,
+        purchase_data: pd.DataFrame,
     ) -> (pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame):
-        """
+        """This is the REFINE segment of the data pipeline (2nd of 3 segments)
+
         For each avocado row in the daily load, logic is similar to
         the following SQL (with input parameter row_id):
         ```
@@ -75,7 +74,13 @@ class ETLDemo:
         The consumerid data in the sample CSV files is so suspect that for demo purposes,
         we are simulating the needed consumer data by selecting a consumer row at random.
         """
-        avocado_refined = avocado_data[["avocado_bunch_id", "sold_date", "born_date", "ripe index when picked", "picked_date"]]
+        avocado_refined = avocado_data[[
+            "avocado_bunch_id",
+            "sold_date",
+            "born_date",
+            "ripe index when picked",
+            "picked_date"
+        ]]
         avocado_refined["avocado_bunch_id"] = avocado_refined["avocado_bunch_id"].apply(safe_int)
 
         # avocado_refined["ripe index when picked"] = avocado_refined["ripe index when picked"].apply(safe_int)
@@ -102,6 +107,7 @@ class ETLDemo:
         fertilizer_refined: pd.DataFrame,
         purchase_refined: pd.DataFrame,
     ) -> pd.DataFrame:
+        """This is the ETL segment of the data pipeline (3rd of 3 segments)"""
 
         result_list: list[list] = []
         for a, avocado in avocado_refined.iterrows():

@@ -27,7 +27,7 @@ class TestMain(unittest.TestCase):
 
             # read input
             obj = QuickDemo()
-            input = obj.get_demo_input()
+            input = obj.read_input()
 
             # transform input
             demo_data = obj.transform(input)
@@ -47,7 +47,7 @@ class TestMain(unittest.TestCase):
 
             # read input
             obj = QuickDemo()
-            input = obj.get_demo_input(data_source="input/DemoSample.csv")
+            input = obj.read_input(data_source="input/demo.csv")
 
             # transform input
             demo_data = obj.transform(input)
@@ -66,15 +66,15 @@ class TestMain(unittest.TestCase):
         with open("resource/expected_output.csv", "r") as sample:
             obj = QuickDemo()
             with raises(FileNotFoundError) as e:
-                obj.get_demo_input(data_source="DemoSample.csv")
-            assert "DemoSample.csv" == e.value.filename
+                obj.read_input(data_source="demo.csv")
+            assert "demo.csv" == e.value.filename
 
     def test_good_output_file_name(self):
         with open("resource/expected_output.csv", "r") as sample:
 
             # read input
             obj = QuickDemo()
-            input = obj.get_demo_input(data_source="input/DemoSample.csv")
+            input = obj.read_input(data_source="input/demo.csv")
 
             # transform input
             demo_data = obj.transform(input)
@@ -93,7 +93,7 @@ class TestMain(unittest.TestCase):
         with open("resource/expected_output.csv", "r") as sample:
             # read input
             obj = QuickDemo()
-            input = obj.get_demo_input(data_source="input/DemoSample.csv")
+            input = obj.read_input(data_source="input/demo.csv")
 
             # transform input
             demo_data = obj.transform(input)
@@ -111,7 +111,7 @@ class TestMain(unittest.TestCase):
     def test_bad_output_file_name_case_0(self):
         with open("resource/expected_output.csv", "r") as sample:
             obj = QuickDemo()
-            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
+            demo_data = obj.read_input(data_source="input/demo.csv")
             with raises(error.InvalidOutputFile) as e:
                 obj.write_demo(demo_data=demo_data, display_target=".csv")
             assert "An invalid CSV output filename or folder was provided" == e.value.message
@@ -119,7 +119,7 @@ class TestMain(unittest.TestCase):
     def test_bad_output_file_name_case_minus_1(self):
         with open("resource/expected_output.csv", "r") as sample:
             obj = QuickDemo()
-            demo_data = obj.get_demo_input(data_source="input/DemoSample.csv")
+            demo_data = obj.read_input(data_source="input/demo.csv")
             with raises(error.InvalidOutputFile) as e:
                 obj.write_demo(demo_data=demo_data, display_target="DemoDeleteMe.pdf")
             assert "An invalid CSV output filename or folder was provided" == e.value.message
@@ -127,7 +127,7 @@ class TestMain(unittest.TestCase):
     def test_demo_all_defaults_overwrite_output_happy(self):
         # read input
         obj = QuickDemo()
-        input = obj.get_demo_input()
+        input = obj.read_input()
 
         # transform input
         demo_data = obj.transform(input)
