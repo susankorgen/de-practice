@@ -49,42 +49,42 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Python tests.Python tests for test_main.TestMain.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_bad_folder.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_bad_output_file_name_case_0.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_bad_output_file_name_case_minus_1.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_demo_all_defaults_happy.executor": "Debug",
-    "Python tests.Python tests for test_main.TestMain.test_demo_bad_input_file_name.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_demo_good_input_file_name.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_good_output_file_name.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_good_simple_output_file_name.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_local_folder.executor": "Run",
-    "Python tests.Python tests for test_main.TestMain.test_run_demo.executor": "Debug",
-    "Python tests.Python tests in test_main.py.executor": "Run",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "database.data.extractors.current.export.id": "Comma-separated (CSV)_id",
-    "git-widget-placeholder": "data-quality-issues",
-    "last_opened_file_path": "/Users/susankorgen/Documents/GitHub/de-practice/control",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "run.code.analysis.last.selected.profile": "aDefault",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Python tests.Python tests for test_main.TestMain.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_bad_folder.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_bad_output_file_name_case_0.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_bad_output_file_name_case_minus_1.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_demo_all_defaults_happy.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_demo_bad_input_file_name.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_demo_good_input_file_name.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_good_output_file_name.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_good_simple_output_file_name.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_local_folder.executor&quot;: &quot;Run&quot;,
+    &quot;Python tests.Python tests for test_main.TestMain.test_run_demo.executor&quot;: &quot;Debug&quot;,
+    &quot;Python tests.Python tests in test_main.py.executor&quot;: &quot;Run&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;Comma-separated (CSV)_id&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;data-quality-issues&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/susankorgen/Documents/GitHub/de-practice/control&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;aDefault&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File": [
-      "SQL",
-      "PLAIN_TEXT"
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;SQL&quot;,
+      &quot;PLAIN_TEXT&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/control" />
